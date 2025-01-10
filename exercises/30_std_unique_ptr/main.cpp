@@ -1,10 +1,8 @@
-﻿#include "../exercise.h"
+#include "../exercise.h"
 #include <memory>
 #include <cstring>
 #include <vector>
 #include <cstdio>
-
-
 // READ: `std::unique_ptr` <https://zh.cppreference.com/w/cpp/memory/unique_ptr>
 
 std::vector<std::string> RECORDS;
@@ -63,13 +61,12 @@ int main(int argc, char **argv) {
         {"d", "d", "r"},
     };
 
-
     // ---- 不要修改以下代码 ----
 
     for (auto i = 0; i < 3; ++i) {
         ASSERT(problems[i].size() == answers[i].size(), "wrong size");
         for (auto j = 0; j < problems[i].size(); ++j) {
-            //ASSERT(std::strcmp(problems[i][j].c_str(), answers[i][j]) == 0, "wrong location");
+            ASSERT(std::strcmp(problems[i][j].c_str(), answers[i][j]) == 0, "wrong location");
         }
     }
 
