@@ -1,6 +1,7 @@
 ﻿#include "../exercise.h"
 #include <vector>
 
+
 // READ: std::vector <https://zh.cppreference.com/w/cpp/container/vector_bool>
 // READ: 模板特化 <https://zh.cppreference.com/w/cpp/language/template_specialization>
 
