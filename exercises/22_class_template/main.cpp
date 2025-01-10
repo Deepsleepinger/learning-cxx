@@ -34,38 +34,35 @@ struct Tensor4D {
     // 则 `this` 与 `others` 相加时，3 个形状为 `[1, 2, 1, 4]` 的子张量各自与 `others` 对应项相加。
     Tensor4D &operator+=(Tensor4D const &others) {
         // TODO: 实现单向广播的加法
-        int oi, oj, ok, ol;
-        for (int i = 0; i < shape[0]; i++) {
-            if (others.shape[0] != shape[0]) {
-                oi = 0;
-            } else {
-                oi = i;
-            }
-            for (int j = 0; j < shape[1]; j++) {
-                if (others.shape[1] != shape[1]) {
-                    oj = 0;
-                } else {
-                    oj = j;
-                }
-                for (int k = 0; k < shape[2]; k++) {
-                    if (others.shape[2] != shape[2]) {
-                        ok = 0;
-                    } else {
-                        ok = k;
-                    }
-                    for (int l = 0; l < shape[3]; l++) {
-                        if (others.shape[3] != shape[3]) {
-                            ol = 0;
-                        } else {
-                            ol = l;
-                        }
-                        auto index = i * shape[1] * shape[2] * shape[3] + j * shape[2] * shape[3] + k * shape[3] + l;
-                        auto oindex = oi * others.shape[1] * others.shape[2] * others.shape[3] + oj * others.shape[2] * others.shape[3] + ok * others.shape[3] + ol;
-                        data[index] += others.data[oindex];
-                    }
-                }
-            }
+    for (int i = 0; i < 4; i++) {
+        if (others.shape[i] != 1 && others.shape[i] != shape[i]) {
+            throw std::runtime_error("Incompatible shapes for broadcasting");
         }
+    }
+
+    // 对每个元素进行广播加法
+    unsigned int size = 1;
+    for (int i = 0; i < 4; i++) {
+        size *= shape[i];
+    }
+
+    for (unsigned int i = 0; i < size; i++) {
+        unsigned int idx = i;
+        unsigned int other_idx = 0;
+        unsigned int other_stride = 1;
+        unsigned int stride = 1;
+
+        for (int dim = 3; dim >= 0; dim--) {
+            unsigned int pos = (idx / stride) % shape[dim];
+            if (others.shape[dim] != 1) {
+                other_idx += pos * other_stride;
+            }
+            stride *= shape[dim];
+            other_stride *= others.shape[dim];
+        }
+
+        data[i] += others.data[other_idx];
+    }
         return *this;
     }
 };
