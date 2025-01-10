@@ -1,4 +1,9 @@
 ﻿#include "../exercise.h"
+#include <numeric>
+#include <cstring>
+#include<string.h>
+
+
 
 // READ: 类模板 <https://zh.cppreference.com/w/cpp/language/class_template>
 
