@@ -1,7 +1,6 @@
 ﻿#include "../exercise.h"
 #include <numeric>
 #include <cstring>
-#include<string.h>
 
 
 
