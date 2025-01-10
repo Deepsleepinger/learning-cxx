@@ -56,8 +56,8 @@ int main(int argc, char **argv) {
 
 std::vector<const char *> answers[]{
         {"fd"},             // problems[0]
-        {"ffr","d" },       // problems[1]
-        {"r","d", "d"},// problems[2]
+        {"d","ffr" },       // problems[1]
+        {"d", "d","r"},// problems[2]
     };
 
 
